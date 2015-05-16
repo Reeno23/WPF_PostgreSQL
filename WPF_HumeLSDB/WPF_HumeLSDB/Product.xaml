@@ -4,9 +4,20 @@
         Title="Product" Height="700" Width="1100" >
     <Grid>
         <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
-            <Button x:Name="prodHomeBtn" Content="Home" Click="homeBtnClick"/>
+            <Button Content="Home" x:Name="prodHomeBtn" Click="homeBtnClick"/>
             <Button x:Name="prodRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
-            <DataGrid x:Name="prodGrid" ItemsSource="{Binding}"/>
+            <Button x:Name="prodInsertBtn" Content="Insert" />
+            <TextBox x:Name="prodDeleteTextBox" Text="prodCode"  TextWrapping="Wrap" />
+            <Button x:Name="prodDeleteBtn" Content="Delete"  Background="#FFFD1A1A" />
+            <DataGrid x:Name="prodGrid" ItemsSource="{Binding}" />
+
+            <StackPanel x:Name="prodStackPanel" >
+                <Label x:Name="prodEnterDataLabel" Content="Enter Information" />
+                <TextBox x:Name="prodCode" Text="Product Code" />
+                <TextBox x:Name="vendCode" Text="Vendor Code" />
+                <TextBox x:Name="prodDescription" Text="Product Description" />
+                <TextBox x:Name="prodPrice" Text="Price (xx.xx)" />
+            </StackPanel>
         </Canvas>
         
     </Grid>

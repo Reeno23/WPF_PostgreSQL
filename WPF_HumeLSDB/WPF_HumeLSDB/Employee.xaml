@@ -4,9 +4,25 @@
         Title="Employee" Height="700" Width="1100" >
     <Grid>
         <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
-            <Button x:Name="empHomeBtn" Content="Home" Click="homeBtnClick"/>
+            <Button Content="Home" x:Name="empHomeBtn" Click="homeBtnClick"/>
             <Button x:Name="empRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
-            <DataGrid x:Name="empGrid" ItemsSource="{Binding}"/>
+            <Button x:Name="empInsertBtn" Content="Insert" />
+            <TextBox x:Name="empDeleteTextBox" Text="empID"  TextWrapping="Wrap" />
+            <Button x:Name="empDeleteBtn" Content="Delete"  Background="#FFFD1A1A" />
+            <DataGrid x:Name="empGrid" ItemsSource="{Binding}" />
+
+            <StackPanel x:Name="empStackPanel" >
+                <Label x:Name="empEnterDataLabel" Content="Enter Information" />
+                <TextBox x:Name="empID" Text="Employee ID" />
+                <TextBox x:Name="empTitle" Text="Employee Title" />
+                <TextBox x:Name="empFName" Text="Employee First Name" />
+                <TextBox x:Name="empLName" Text="Employee Last Name" />
+                <TextBox x:Name="empInitial" Text="Employee Initial" />
+                <TextBox x:Name="empAreaCode" Text="Employee Area Code (xxx)" />
+                <TextBox x:Name="empPhone" Text="Employee Phone # (xxx-xxxx)" />
+                <TextBox x:Name="empEmail" Text="Employee Email" />
+                <TextBox x:Name="empRate" Text="Employee Rate (xx.xx)" />
+            </StackPanel>
         </Canvas>
     </Grid>
 </Window>

@@ -3,25 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Vendor" Height="700" Width="1100" >
     <Grid>
-        <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="10,0,-10,0" >
+        <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
             <Button Content="Home" x:Name="vendHomeBtn" Click="homeBtnClick"/>
             <Button x:Name="vendRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
-            <Button Content="Insert" Canvas.Left="837" Canvas.Top="49" Width="75"/>
-            <TextBox Text="vendCode" x:Name="deleteID" Height="23" Canvas.Left="805" TextWrapping="Wrap" Canvas.Top="226" Width="120"/>
-            <Button Content="Delete" Canvas.Left="952" Canvas.Top="226" Width="75" Background="#FFFD1A1A" />
-            <DataGrid x:Name="vendGrid" ItemsSource="{Binding}"/>
+            <Button x:Name="vendInsertBtn" Content="Insert" />
+            <TextBox x:Name="vendDeleteTextBox" Text="vendCode"  TextWrapping="Wrap" />
+            <Button x:Name="vendDeleteBtn" Content="Delete"  Background="#FFFD1A1A" />
+            <DataGrid x:Name="vendGrid" ItemsSource="{Binding}" />
 
-            <StackPanel x:Name="vendStackPanel" Canvas.Left="400" Canvas.Top="10" Height="250" Width="400" Grid.Column="2" Grid.Row="1" >
-                <Label x:Name="vendEnterDataLabel" Content="Enter Information" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0, 0, 0, 10" />
-                <TextBox x:Name="vendCode" Text="Vendor Code" HorizontalAlignment="Left" />
-                <TextBox x:Name="vendName" Text="Vendor Name" HorizontalAlignment="Right" Margin="0, -21, 0, 5" />
-                <TextBox x:Name="vendArea" Text="Area Code (xxx)" HorizontalAlignment="Left" />
-                <TextBox x:Name="vendPhone" Text="Phone (xxx-xxxx)" HorizontalAlignment="Right" Margin="0, -21, 0, 5" />
-                <TextBox x:Name="vendAddress" Text="Vendor Address" HorizontalAlignment="Left" />
-                <TextBox x:Name="vendEmail" Text="Vendor Email" HorizontalAlignment="Right" Margin="0, -21, 0, 5" />
-                <TextBox x:Name="vendCity" Text="Vendor City" HorizontalAlignment="Left" />
-                <TextBox x:Name="vendState" Text="Vendor State (PA)" HorizontalAlignment="Right" Margin="0, -21, 0, 5" />
-                <TextBox x:Name="vendZip" Text="Vendor Zipcode (xxxxx)" HorizontalAlignment="Left" />
+            <StackPanel x:Name="vendStackPanel" >
+                <Label x:Name="vendEnterDataLabel" Content="Enter Information" />
+                <TextBox x:Name="vendCode" Text="Vendor Code" />
+                <TextBox x:Name="vendName" Text="Vendor Name" />
+                <TextBox x:Name="vendArea" Text="Area Code (xxx)" />
+                <TextBox x:Name="vendPhone" Text="Phone (xxx-xxxx)" />
+                <TextBox x:Name="vendAddress" Text="Vendor Address" />
+                <TextBox x:Name="vendEmail" Text="Vendor Email" />
+                <TextBox x:Name="vendCity" Text="Vendor City" />
+                <TextBox x:Name="vendState" Text="Vendor State (PA)" />
+                <TextBox x:Name="vendZip" Text="Vendor Zipcode (xxxxx)" />
             </StackPanel>
         </Canvas>
     </Grid>

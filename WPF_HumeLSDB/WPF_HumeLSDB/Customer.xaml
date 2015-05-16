@@ -3,12 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Customer" Height="700" Width="1100" >
     <Grid>
-        <Canvas x:Name="custCanvas"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
-            <Button x:Name="custHomeBtn" Content="Home" Click="homeBtnClick" />
+        <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
+            <Button Content="Home" x:Name="custHomeBtn" Click="homeBtnClick"/>
             <Button x:Name="custRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
-            <DataGrid x:Name="custGrid"  ItemsSource="{Binding}" />
+            <Button x:Name="custInsertBtn" Content="Insert" />
+            <TextBox x:Name="custDeleteTextBox" Text="custID"  TextWrapping="Wrap" />
+            <Button x:Name="custDeleteBtn" Content="Delete"  Background="#FFFD1A1A" />
+            <DataGrid x:Name="custGrid" ItemsSource="{Binding}" />
+
+            <StackPanel x:Name="custStackPanel" >
+                <Label x:Name="custEnterDataLabel" Content="Enter Information" />
+                <TextBox x:Name="custID" Text="Customer ID" />
+                <TextBox x:Name="custFName" Text="Customer First Name" />
+                <TextBox x:Name="custLName" Text="Customer Last Name" />
+                <TextBox x:Name="custInitial" Text="Customer Initial" />
+                <TextBox x:Name="custAreaCode" Text="Customer Area Code (xxx)" />
+                <TextBox x:Name="custPhone" Text="Customer Phone # (xxx-xxxx)" />
+                <TextBox x:Name="custAddress" Text="Customer Address" />
+                <TextBox x:Name="custEmail" Text="Customer Email" />
+                <TextBox x:Name="custCity" Text="Customer City" />
+                <TextBox x:Name="custState" Text="Customer State" />
+                <TextBox x:Name="custZip" Text="Customer Zipcode" />
+            </StackPanel>
         </Canvas>
-
-
     </Grid>
 </Window>
