@@ -1,10 +1,12 @@
-﻿<Window x:Class="WPF_HumeLSDB.Customer"
+﻿<Window x:Class="WPF_HumeLSDB.Customer" x:Name="custWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Customer" >
+        Title="Customer" Height="700" Width="1100" >
     <Grid>
-        <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
-            <Button Content="Home" Canvas.Left="33" Canvas.Top="28" Width="75" Click="Button_Click_1" />
+        <Canvas x:Name="custCanvas"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
+            <Button x:Name="custHomeBtn" Content="Home" Click="homeBtnClick" />
+            <Button x:Name="custRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
+            <DataGrid x:Name="custGrid"  ItemsSource="{Binding}" />
         </Canvas>
 
 

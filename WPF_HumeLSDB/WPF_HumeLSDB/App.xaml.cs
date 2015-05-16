@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Npgsql;
 
 namespace WPF_HumeLSDB
 {
@@ -15,7 +16,19 @@ namespace WPF_HumeLSDB
     public partial class App : Application
     {
 
+        public static NpgsqlConnection openConn()
+        {
+            string connString = ("Server=localhost; Port=5432; User Id=postgres; Password=chum2087$; Database=hume;");
+            NpgsqlConnection conn = new NpgsqlConnection(connString);
+            conn.Open();
 
+            return conn;
+        }
+
+        public static void closeConn(NpgsqlConnection conn)
+        {
+            conn.Close();
+        }
 
     }
 }
