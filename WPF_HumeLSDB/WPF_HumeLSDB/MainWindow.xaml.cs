@@ -25,6 +25,10 @@ namespace WPF_HumeLSDB
         public MainWindow()
         {
             InitializeComponent();
+            mainPic.Height = Application.Current.MainWindow.Height * .8;
+            mainPic.Width = Application.Current.MainWindow.Width * .6;
+            mainPic.SetValue(Canvas.LeftProperty, Application.Current.MainWindow.Width * .35);
+            mainPic.SetValue(Canvas.TopProperty, Application.Current.MainWindow.Height * .07);
         }
 
 

@@ -127,7 +127,7 @@ namespace WPF_HumeLSDB
             App.closeConn(conn);
         }
 
-        // Makes textbox custty when you click inside it, so the default description text is gone.
+        // Makes textbox empty when you click inside it, so the default description text is gone.
         private void textBox_gotFocus(object sender, RoutedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
