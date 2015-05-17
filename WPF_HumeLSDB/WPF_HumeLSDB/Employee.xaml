@@ -4,24 +4,33 @@
         Title="Employee" Height="700" Width="1100" >
     <Grid>
         <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.978"/>
+                    <GradientStop Color="#FF1B3D4D" Offset="0.46"/>
+                    <GradientStop Color="#FF325C70" Offset="0.77"/>
+                    <GradientStop Color="#FF325D71" Offset="0.14"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
             <Button Content="Home" x:Name="empHomeBtn" Click="homeBtnClick"/>
             <Button x:Name="empRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
-            <Button x:Name="empInsertBtn" Content="Insert" />
-            <TextBox x:Name="empDeleteTextBox" Text="empID"  TextWrapping="Wrap" />
-            <Button x:Name="empDeleteBtn" Content="Delete"  Background="#FFFD1A1A" />
+            <Button x:Name="empInsertBtn" Content="Insert" Background="#FFF1DC53" Click="insertClick" />
+            <TextBox x:Name="empUpdateOrDeleteTextBox" Text="emp_id" GotFocus="textBox_gotFocus" />
+            <Button x:Name="empUpdateBtn" Content="Update"  Background="#FF40CB59" Click="updateClick" />
+            <Button x:Name="empDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="empGrid" ItemsSource="{Binding}" />
 
             <StackPanel x:Name="empStackPanel" >
-                <Label x:Name="empEnterDataLabel" Content="Enter Information" />
-                <TextBox x:Name="empID" Text="Employee ID" />
-                <TextBox x:Name="empTitle" Text="Employee Title" />
-                <TextBox x:Name="empFName" Text="Employee First Name" />
-                <TextBox x:Name="empLName" Text="Employee Last Name" />
-                <TextBox x:Name="empInitial" Text="Employee Initial" />
-                <TextBox x:Name="empAreaCode" Text="Employee Area Code (xxx)" />
-                <TextBox x:Name="empPhone" Text="Employee Phone # (xxx-xxxx)" />
-                <TextBox x:Name="empEmail" Text="Employee Email" />
-                <TextBox x:Name="empRate" Text="Employee Rate (xx.xx)" />
+
+                <Label x:Name="empEnterDataLabel" Content="Enter Information:" />
+                <TextBox x:Name="empTitle" Text="Emp Title" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empFName" Text="Emp First Name" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empLName" Text="Emp Last Name" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empInitial" Text="Emp Initial" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empArea" Text="Emp Area Code" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empPhone" Text="Emp Phone # (xxx-xxxx)" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empEmail" Text="Emp Email" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empRate" Text="Employee Rate (xx.xx)" GotFocus="textBox_gotFocus" />
             </StackPanel>
         </Canvas>
     </Grid>

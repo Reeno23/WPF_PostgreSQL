@@ -4,26 +4,35 @@
         Title="Customer" Height="700" Width="1100" >
     <Grid>
         <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.978"/>
+                    <GradientStop Color="#FF1B3D4D" Offset="0.46"/>
+                    <GradientStop Color="#FF325C70" Offset="0.77"/>
+                    <GradientStop Color="#FF325D71" Offset="0.14"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
             <Button Content="Home" x:Name="custHomeBtn" Click="homeBtnClick"/>
             <Button x:Name="custRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
-            <Button x:Name="custInsertBtn" Content="Insert" />
-            <TextBox x:Name="custDeleteTextBox" Text="custID"  TextWrapping="Wrap" />
-            <Button x:Name="custDeleteBtn" Content="Delete"  Background="#FFFD1A1A" />
+            <Button x:Name="custInsertBtn" Content="Insert" Background="#FFF1DC53" Click="insertClick" />
+            <TextBox x:Name="custUpdateOrDeleteTextBox" Text="cust_id" GotFocus="textBox_gotFocus" />
+            <Button x:Name="custUpdateBtn" Content="Update"  Background="#FF40CB59" Click="updateClick" />
+            <Button x:Name="custDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="custGrid" ItemsSource="{Binding}" />
 
             <StackPanel x:Name="custStackPanel" >
-                <Label x:Name="custEnterDataLabel" Content="Enter Information" />
-                <TextBox x:Name="custID" Text="Customer ID" />
-                <TextBox x:Name="custFName" Text="Customer First Name" />
-                <TextBox x:Name="custLName" Text="Customer Last Name" />
-                <TextBox x:Name="custInitial" Text="Customer Initial" />
-                <TextBox x:Name="custAreaCode" Text="Customer Area Code (xxx)" />
-                <TextBox x:Name="custPhone" Text="Customer Phone # (xxx-xxxx)" />
-                <TextBox x:Name="custAddress" Text="Customer Address" />
-                <TextBox x:Name="custEmail" Text="Customer Email" />
-                <TextBox x:Name="custCity" Text="Customer City" />
-                <TextBox x:Name="custState" Text="Customer State" />
-                <TextBox x:Name="custZip" Text="Customer Zipcode" />
+
+                <Label x:Name="custEnterDataLabel" Content="Enter Information:" />
+                <TextBox x:Name="custFName" Text="Cust First Name" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custLName" Text="Cust Last Name" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custInitial" Text="Cust Initial" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custArea" Text="Cust Area Code" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custPhone" Text="Cust Phone # (xxx-xxxx)" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custAddress" Text="Cust Address" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custEmail" Text="Cust Email" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custCity" Text="Cust City" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custState" Text="Cust State (XX)" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custZip" Text="Cust Zip" GotFocus="textBox_gotFocus" />
             </StackPanel>
         </Canvas>
     </Grid>

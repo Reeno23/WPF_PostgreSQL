@@ -55,14 +55,17 @@ namespace WPF_HumeLSDB
             // Insert button. Inserts row into database via textbox fields in stack panel.
             vendInsertBtn.Width = 75;
             vendInsertBtn.SetValue(Canvas.LeftProperty, vendWindow.Width * .8);
-            vendInsertBtn.SetValue(Canvas.TopProperty, vendWindow.Height * .07);
-            // Delete button and corresponding textbox. Will delete row in database based on given vendCode.
+            vendInsertBtn.SetValue(Canvas.TopProperty, vendWindow.Height * .08);
+            // Update button, delete button, and corresponding textbox. Will update or delete row in database based on given vendCode.
+            vendUpdateBtn.Width = 75;
+            vendUpdateBtn.SetValue(Canvas.LeftProperty, vendWindow.Width * .88);
+            vendUpdateBtn.SetValue(Canvas.TopProperty, vendWindow.Height * .30);
             vendDeleteBtn.Width = 75;
             vendDeleteBtn.SetValue(Canvas.LeftProperty, vendWindow.Width * .88);
             vendDeleteBtn.SetValue(Canvas.TopProperty, vendWindow.Height * .35);
-            vendDeleteTextBox.Width = vendStackPanel.Width * .4;
-            vendDeleteTextBox.SetValue(Canvas.LeftProperty, vendWindow.Width * .79);
-            vendDeleteTextBox.SetValue(Canvas.TopProperty, vendWindow.Height * .35);
+            vendUpdateOrDeleteTextBox.Width = 80;
+            vendUpdateOrDeleteTextBox.SetValue(Canvas.LeftProperty, vendWindow.Width * .79);
+            vendUpdateOrDeleteTextBox.SetValue(Canvas.TopProperty, vendWindow.Height * .325);
         }
 
         // Sets properties for all text boxes inside the stack panel & the panel itself.
@@ -74,31 +77,31 @@ namespace WPF_HumeLSDB
             vendStackPanel.SetValue(Canvas.TopProperty, vendWindow.Height * .02);
             vendEnterDataLabel.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             vendEnterDataLabel.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            vendEnterDataLabel.Margin = new Thickness(0, 0, 0, 10);
+            vendEnterDataLabel.Margin = new Thickness(-7, 0, 0, 10);
+            vendEnterDataLabel.SetValue(FontWeightProperty, FontWeights.Bold);
+            vendEnterDataLabel.FontSize = 16;
 
             // All textbox fields used to insert new row into database. 
-            vendCode.Width = vendStackPanel.Width * .4;
-            vendCode.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             vendName.Width = vendStackPanel.Width * .4;
-            vendName.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-            vendName.Margin = new Thickness(0, -21, 0, 5);
+            vendName.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             vendArea.Width = vendStackPanel.Width * .4;
-            vendArea.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            vendArea.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            vendArea.Margin = new Thickness(0, -21, 0, 5);
             vendPhone.Width = vendStackPanel.Width * .4;
-            vendPhone.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-            vendPhone.Margin = new Thickness(0, -21, 0, 5);
+            vendPhone.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             vendAddress.Width = vendStackPanel.Width * .4;
-            vendAddress.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            vendAddress.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            vendAddress.Margin = new Thickness(0, -21, 0, 5);
             vendEmail.Width = vendStackPanel.Width * .4;
-            vendEmail.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-            vendEmail.Margin = new Thickness(0, -21, 0, 5);
+            vendEmail.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             vendCity.Width = vendStackPanel.Width * .4;
-            vendCity.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            vendCity.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            vendCity.Margin = new Thickness(0, -21, 0, 5);
             vendState.Width = vendStackPanel.Width * .4;
-            vendState.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-            vendState.Margin = new Thickness(0, -21, 0, 5);
+            vendState.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             vendZip.Width = vendStackPanel.Width * .4;
-            vendZip.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            vendZip.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            vendZip.Margin = new Thickness(0, -21, 0, 5);
         }
 
         // Fills datagrid with all data in specified table (Vendor).
@@ -119,6 +122,14 @@ namespace WPF_HumeLSDB
             App.closeConn(conn);
         }
 
+        // Makes textbox empty when you click inside it, so the default description text is gone.
+        private void textBox_gotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            tb.Text = string.Empty;
+            tb.GotFocus -= textBox_gotFocus;
+        }
+
         // Takes user back to main window. 
         private void homeBtnClick(object sender, RoutedEventArgs e)
         {
@@ -130,6 +141,139 @@ namespace WPF_HumeLSDB
         private void refreshBtnClick(object sender, RoutedEventArgs e)
         {
             makeVendorGrid();
+        }
+        
+        // Insert button will insert row into database based on input information.
+        private void insertClick(object sender, RoutedEventArgs e)
+        {
+            string useName = vendName.Text;
+            int useArea = Int32.Parse(vendArea.Text);
+            string usePhone = vendPhone.Text;
+            string useAddress = vendAddress.Text;
+            string useEmail = vendEmail.Text;
+            string useCity = vendCity.Text;
+            string useState = vendState.Text;
+            int useZip = Int32.Parse(vendZip.Text);
+
+            using(NpgsqlConnection conn = App.openConn())
+            {
+
+                using (NpgsqlCommand insertQuery = new NpgsqlCommand ("insert into vendor ( "
+                            + "vend_name, vend_areacode, vend_phone, vend_address, "
+                            + "vend_email, vend_city, vend_state, vend_zipcode) VALUES ("
+                            + ":Name, :Area, :Phone, :Address, :Email, :City, :State, :Zip)", conn)) 
+                {
+
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Name", NpgsqlTypes.NpgsqlDbType.Varchar));
+                    insertQuery.Parameters["Name"].Value = useName;
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Integer)); 
+                    insertQuery.Parameters["Area"].Value = useArea;
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
+                    insertQuery.Parameters["Phone"].Value = usePhone;
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Address", NpgsqlTypes.NpgsqlDbType.Varchar));
+                    insertQuery.Parameters["Address"].Value = useAddress;
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Email", NpgsqlTypes.NpgsqlDbType.Varchar));
+                    insertQuery.Parameters["Email"].Value = useEmail;
+                    insertQuery.Parameters.Add(new NpgsqlParameter("City", NpgsqlTypes.NpgsqlDbType.Varchar));
+                    insertQuery.Parameters["City"].Value = useCity;
+                    insertQuery.Parameters.Add(new NpgsqlParameter("State", NpgsqlTypes.NpgsqlDbType.Varchar));
+                    insertQuery.Parameters["State"].Value = useState;
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Integer));
+                    insertQuery.Parameters["Zip"].Value = useZip;
+
+                    try
+                    {
+                        int rowsAffected = insertQuery.ExecuteNonQuery();
+                        MessageBox.Show(rowsAffected.ToString());
+                    }
+                    catch(NpgsqlException q)
+                    {
+                        Console.Write(q);
+                    }
+                    finally
+                    {
+                        App.closeConn(conn);
+                    }
+                }
+
+            }
+        }
+
+        // Update button will update row based on input vend_code with input fields.
+        private void updateClick(object sender, RoutedEventArgs e)
+        {
+            int useCode = Int32.Parse(vendUpdateOrDeleteTextBox.Text);
+            string useName = vendName.Text;
+            int useArea = Int32.Parse(vendArea.Text);
+            string usePhone = vendPhone.Text;
+            string useAddress = vendAddress.Text;
+            string useEmail = vendEmail.Text;
+            string useCity = vendCity.Text;
+            string useState = vendState.Text;
+            int useZip = Int32.Parse(vendZip.Text);
+
+            NpgsqlConnection conn = App.openConn();
+            string updatingID = vendUpdateOrDeleteTextBox.Text;
+            string sql = "update vendor set vend_name = :Name, vend_areacode = :Area, vend_phone = :Phone, "
+                       + "vend_address = :Address, vend_email = :Email, vend_city = :City, vend_state = :State, "
+                       + "vend_zipcode = :Zip where vend_code = :Code";
+            NpgsqlCommand updateQuery = new NpgsqlCommand(sql, conn);
+
+            updateQuery.Parameters.Add(new NpgsqlParameter("Name", NpgsqlTypes.NpgsqlDbType.Varchar));
+            updateQuery.Parameters["Name"].Value = useName;
+            updateQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Integer));
+            updateQuery.Parameters["Area"].Value = useArea;
+            updateQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
+            updateQuery.Parameters["Phone"].Value = usePhone;
+            updateQuery.Parameters.Add(new NpgsqlParameter("Address", NpgsqlTypes.NpgsqlDbType.Varchar));
+            updateQuery.Parameters["Address"].Value = useAddress;
+            updateQuery.Parameters.Add(new NpgsqlParameter("Email", NpgsqlTypes.NpgsqlDbType.Varchar));
+            updateQuery.Parameters["Email"].Value = useEmail;
+            updateQuery.Parameters.Add(new NpgsqlParameter("City", NpgsqlTypes.NpgsqlDbType.Varchar));
+            updateQuery.Parameters["City"].Value = useCity;
+            updateQuery.Parameters.Add(new NpgsqlParameter("State", NpgsqlTypes.NpgsqlDbType.Varchar));
+            updateQuery.Parameters["State"].Value = useState;
+            updateQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Integer));
+            updateQuery.Parameters["Zip"].Value = useZip;
+            updateQuery.Parameters.Add(new NpgsqlParameter("Code", NpgsqlTypes.NpgsqlDbType.Integer));
+            updateQuery.Parameters["Code"].Value = useCode;
+
+            try
+            {
+                int rowsAffected = updateQuery.ExecuteNonQuery();
+                string dialog = (rowsAffected + " record(s) with vend_code of " + updatingID + " has been updated in Vendor table.");
+                MessageBox.Show(dialog);
+            }
+            catch (NpgsqlException q)
+            {
+                Console.Write(q);
+            }
+            finally 
+            {
+                App.closeConn(conn);
+            }
+        }
+
+        // Delete button will delete row based on input vend_code.
+        private void deleteClick(object sender, RoutedEventArgs e)
+        { 
+            NpgsqlConnection conn = App.openConn();
+            string deletingID = vendUpdateOrDeleteTextBox.Text;
+            string sql = ("delete from vendor where vend_code = " + deletingID + ";");
+            NpgsqlCommand da = new NpgsqlCommand(sql, conn);
+            int rowsAffected;
+
+            try 
+            {
+                rowsAffected = da.ExecuteNonQuery();
+                string dialog = (rowsAffected + " record(s) with vend_code of " + deletingID + " has been deleted from Vendor table.");
+                MessageBox.Show(dialog);
+
+            }
+            finally 
+            {
+                App.closeConn(conn);
+            }
         }
     }
 }

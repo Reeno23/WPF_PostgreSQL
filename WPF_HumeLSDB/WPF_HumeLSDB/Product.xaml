@@ -4,21 +4,28 @@
         Title="Product" Height="700" Width="1100" >
     <Grid>
         <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.978"/>
+                    <GradientStop Color="#FF1B3D4D" Offset="0.46"/>
+                    <GradientStop Color="#FF325C70" Offset="0.77"/>
+                    <GradientStop Color="#FF325D71" Offset="0.14"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
             <Button Content="Home" x:Name="prodHomeBtn" Click="homeBtnClick"/>
             <Button x:Name="prodRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
-            <Button x:Name="prodInsertBtn" Content="Insert" />
-            <TextBox x:Name="prodDeleteTextBox" Text="prodCode"  TextWrapping="Wrap" />
-            <Button x:Name="prodDeleteBtn" Content="Delete"  Background="#FFFD1A1A" />
+            <Button x:Name="prodInsertBtn" Content="Insert" Background="#FFF1DC53" Click="insertClick" />
+            <TextBox x:Name="prodUpdateOrDeleteTextBox" Text="prodCode" GotFocus="textBox_gotFocus" />
+            <Button x:Name="prodUpdateBtn" Content="Update"  Background="#FF40CB59" Click="updateClick" />
+            <Button x:Name="prodDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="prodGrid" ItemsSource="{Binding}" />
 
             <StackPanel x:Name="prodStackPanel" >
-                <Label x:Name="prodEnterDataLabel" Content="Enter Information" />
-                <TextBox x:Name="prodCode" Text="Product Code" />
-                <TextBox x:Name="vendCode" Text="Vendor Code" />
-                <TextBox x:Name="prodDescription" Text="Product Description" />
-                <TextBox x:Name="prodPrice" Text="Price (xx.xx)" />
+                <Label x:Name="prodEnterDataLabel" Content="Enter Information:" />
+                <TextBox x:Name="vendCode" Text="Vendor Code" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="prodDescription" Text="Product Description" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="prodPrice" Text="Product Price (xx.xx)" GotFocus="textBox_gotFocus" />
             </StackPanel>
         </Canvas>
-        
     </Grid>
 </Window>

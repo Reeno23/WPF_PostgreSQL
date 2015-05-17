@@ -4,24 +4,33 @@
         Title="Vendor" Height="700" Width="1100" >
     <Grid>
         <Canvas HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" >
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.978"/>
+                    <GradientStop Color="#FF1B3D4D" Offset="0.46"/>
+                    <GradientStop Color="#FF325C70" Offset="0.77"/>
+                    <GradientStop Color="#FF325D71" Offset="0.14"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
             <Button Content="Home" x:Name="vendHomeBtn" Click="homeBtnClick"/>
             <Button x:Name="vendRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
-            <Button x:Name="vendInsertBtn" Content="Insert" />
-            <TextBox x:Name="vendDeleteTextBox" Text="vendCode"  TextWrapping="Wrap" />
-            <Button x:Name="vendDeleteBtn" Content="Delete"  Background="#FFFD1A1A" />
+            <Button x:Name="vendInsertBtn" Content="Insert" Background="#FFF1DC53" Click="insertClick" />
+            <TextBox x:Name="vendUpdateOrDeleteTextBox" Text="vendCode" GotFocus="textBox_gotFocus" />
+            <Button x:Name="vendUpdateBtn" Content="Update"  Background="#FF40CB59" Click="updateClick" />
+            <Button x:Name="vendDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="vendGrid" ItemsSource="{Binding}" />
 
             <StackPanel x:Name="vendStackPanel" >
-                <Label x:Name="vendEnterDataLabel" Content="Enter Information" />
-                <TextBox x:Name="vendCode" Text="Vendor Code" />
-                <TextBox x:Name="vendName" Text="Vendor Name" />
-                <TextBox x:Name="vendArea" Text="Area Code (xxx)" />
-                <TextBox x:Name="vendPhone" Text="Phone (xxx-xxxx)" />
-                <TextBox x:Name="vendAddress" Text="Vendor Address" />
-                <TextBox x:Name="vendEmail" Text="Vendor Email" />
-                <TextBox x:Name="vendCity" Text="Vendor City" />
-                <TextBox x:Name="vendState" Text="Vendor State (PA)" />
-                <TextBox x:Name="vendZip" Text="Vendor Zipcode (xxxxx)" />
+
+                <Label x:Name="vendEnterDataLabel" Content="Enter Information:" />
+                <TextBox x:Name="vendName" Text="Vendor Name" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendArea" Text="Area Code (xxx)" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendPhone" Text="Phone (xxx-xxxx)" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendAddress" Text="Vendor Address" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendEmail" Text="Vendor Email" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendCity" Text="Vendor City" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendState" Text="Vendor State (PA)" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendZip" Text="Vendor Zipcode (xxxxx)" GotFocus="textBox_gotFocus" />
             </StackPanel>
         </Canvas>
     </Grid>
