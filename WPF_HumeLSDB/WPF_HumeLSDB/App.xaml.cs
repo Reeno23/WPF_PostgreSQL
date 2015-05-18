@@ -26,7 +26,7 @@ namespace WPF_HumeLSDB
 
         public static NpgsqlConnection openConn()
         {
-            string connString = ("Server=localhost; Port=5432; User Id=postgres; Password=chum2087$; Database=hume;");
+            string connString = ("Server=192.168.1.105; Port=5432; User Id=postgres; Password=chum2087$; Database=hume;");
             NpgsqlConnection conn = new NpgsqlConnection(connString);
             conn.Open();
 
