@@ -20,21 +20,36 @@
             <Button x:Name="custUpdateBtn" Content="Update"  Background="#FF40CB59" Click="updateClick" />
             <Button x:Name="custDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="custGrid" ItemsSource="{Binding}" />
-
-            <StackPanel x:Name="custStackPanel" >
-
-                <Label x:Name="custEnterDataLabel" Content="Enter Information:" />
-                <TextBox x:Name="custFName" Text="Cust First Name" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="custLName" Text="Cust Last Name" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="custInitial" Text="Cust Initial" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="custArea" Text="Cust Area Code" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="custPhone" Text="Cust Phone # (xxx-xxxx)" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="custAddress" Text="Cust Address" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="custEmail" Text="Cust Email" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="custCity" Text="Cust City" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="custState" Text="Cust State (XX)" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="custZip" Text="Cust Zip" GotFocus="textBox_gotFocus" />
+            
+            <StackPanel x:Name="custLabelPanelLeft" >
+                <Label x:Name="labelFName" Content="* First name"/> 
+                <Label x:Name="labelInitial" Content="Middle initial"/>
+                <Label x:Name="labelPhone" Content="Phone number"/>
+                <Label x:Name="labelEmail" Content="Email"/>
+                <Label x:Name="labelState" Content="State"/>
             </StackPanel>
+            <StackPanel x:Name="custLabelPanelRight" >
+                <Label x:Name="labelLName" Content="Last name *"/>
+                <Label x:Name="labelArea" Content="Area code"/>
+                <Label x:Name="labelAddress" Content="Address"/>
+                <Label x:Name="labelCity" Content="City"/>
+                <Label x:Name="labelZip" Content="Zip code"/>
+            </StackPanel>
+            
+            <StackPanel x:Name="custStackPanel" >
+                <Label x:Name="custEnterDataLabel" Content="Enter Information:" Foreground="#FF40CB59" />
+                <TextBox x:Name="custFName" Text="Chris" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custLName" Text="Hume" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custInitial" Text="R" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custArea" Text="570" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custPhone" Text="321-7654" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custAddress" Text="84 AJ Road" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custEmail" Text="applejuice@gmail.com" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custCity" Text="Middleapple Center" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custState" Text="PA" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="custZip" Text="94321" GotFocus="textBox_gotFocus" />
+            </StackPanel>
+
         </Canvas>
     </Grid>
 </Window>

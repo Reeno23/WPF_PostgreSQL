@@ -21,11 +21,19 @@
             <Button x:Name="prodDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="prodGrid" ItemsSource="{Binding}" />
 
+            <StackPanel x:Name="prodLabelPanelLeft" >
+                <Label x:Name="labelVendCode" Content="* Vendor code"/>
+                <Label x:Name="labelPrice" Content="* Price per unit"/>
+            </StackPanel>
+            <StackPanel x:Name="prodLabelPanelRight" >
+                <Label x:Name="labelDescription" Content="Description"/>
+            </StackPanel>
+            
             <StackPanel x:Name="prodStackPanel" >
-                <Label x:Name="prodEnterDataLabel" Content="Enter Information:" />
-                <TextBox x:Name="vendCode" Text="Vendor Code" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="prodDescription" Text="Product Description" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="prodPrice" Text="Product Price (xx.xx)" GotFocus="textBox_gotFocus" />
+                <Label x:Name="prodEnterDataLabel" Content="Enter Information:" Foreground="#FF40CB59" />
+                <TextBox x:Name="vendCode" Text="1" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="prodDescription" Text="Red barberry, medium size" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="prodPrice" Text="32.95" GotFocus="textBox_gotFocus" />
             </StackPanel>
         </Canvas>
     </Grid>

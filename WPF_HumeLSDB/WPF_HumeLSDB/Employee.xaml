@@ -21,17 +21,29 @@
             <Button x:Name="empDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="empGrid" ItemsSource="{Binding}" />
 
+            <StackPanel x:Name="empLabelPanelLeft" >
+                <Label x:Name="labelTitle" Content="Job title"/>
+                <Label x:Name="labelLName" Content="* Last name"/>
+                <Label x:Name="labelArea" Content="Area code"/>
+                <Label x:Name="labelEmail" Content="Email"/>
+            </StackPanel>
+            <StackPanel x:Name="empLabelPanelRight" >
+                <Label x:Name="labelFName" Content="First name *"/>
+                <Label x:Name="labelInitial" Content="Middle initial"/>
+                <Label x:Name="labelPhone" Content="Phone number"/>
+                <Label x:Name="labelRate" Content="Hourly rate *"/>
+            </StackPanel>
+            
             <StackPanel x:Name="empStackPanel" >
-
-                <Label x:Name="empEnterDataLabel" Content="Enter Information:" />
-                <TextBox x:Name="empTitle" Text="Emp Title" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="empFName" Text="Emp First Name" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="empLName" Text="Emp Last Name" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="empInitial" Text="Emp Initial" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="empArea" Text="Emp Area Code" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="empPhone" Text="Emp Phone # (xxx-xxxx)" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="empEmail" Text="Emp Email" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="empRate" Text="Employee Rate (xx.xx)" GotFocus="textBox_gotFocus" />
+                <Label x:Name="empEnterDataLabel" Content="Enter Information:" Foreground="#FF40CB59" />
+                <TextBox x:Name="empTitle" Text="Boss guy" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empFName" Text="Jimmy" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empLName" Text="Thompson" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empInitial" Text="T" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empArea" Text="570" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empPhone" Text="363-4322" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empEmail" Text="realboss@gmail.com" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="empRate" Text="25.45" GotFocus="textBox_gotFocus" />
             </StackPanel>
         </Canvas>
     </Grid>

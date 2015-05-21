@@ -21,17 +21,29 @@
             <Button x:Name="vendDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="vendGrid" ItemsSource="{Binding}" />
 
+            <StackPanel x:Name="vendLabelPanelLeft" >
+                <Label x:Name="labelName" Content="* Vendor name"/>
+                <Label x:Name="labelPhone" Content="Phone number"/>
+                <Label x:Name="labelEmail" Content="Email"/>
+                <Label x:Name="labelState" Content="State"/>
+            </StackPanel>
+            <StackPanel x:Name="vendLabelPanelRight" >
+                <Label x:Name="labelArea" Content="Area code"/>
+                <Label x:Name="labelAddress" Content="Address"/>
+                <Label x:Name="labelCity" Content="City"/>
+                <Label x:Name="labelZip" Content="Zip code"/>
+            </StackPanel>
+            
             <StackPanel x:Name="vendStackPanel" >
-
-                <Label x:Name="vendEnterDataLabel" Content="Enter Information:" />
-                <TextBox x:Name="vendName" Text="Vendor Name" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="vendArea" Text="Area Code (xxx)" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="vendPhone" Text="Phone (xxx-xxxx)" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="vendAddress" Text="Vendor Address" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="vendEmail" Text="Vendor Email" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="vendCity" Text="Vendor City" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="vendState" Text="Vendor State (PA)" GotFocus="textBox_gotFocus" />
-                <TextBox x:Name="vendZip" Text="Vendor Zipcode (xxxxx)" GotFocus="textBox_gotFocus" />
+                <Label x:Name="vendEnterDataLabel" Content="Enter Information:" Foreground="#FF40CB59" />
+                <TextBox x:Name="vendName" Text="Mcdonalds" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendArea" Text="570" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendPhone" Text="232-5381" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendAddress" Text="92 Main Street" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendEmail" Text="bigmac@gmail.com" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendCity" Text="Wellsbrah" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendState" Text="TX" GotFocus="textBox_gotFocus" />
+                <TextBox x:Name="vendZip" Text="23219" GotFocus="textBox_gotFocus" />
             </StackPanel>
         </Canvas>
     </Grid>

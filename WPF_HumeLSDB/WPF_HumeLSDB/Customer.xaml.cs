@@ -54,7 +54,7 @@ namespace WPF_HumeLSDB
             custRefreshBtn.SetValue(Canvas.TopProperty, custWindow.Height * .35);
             // Insert button. Inserts row into database via textbox fields in stack panel.
             custInsertBtn.Width = 75;
-            custInsertBtn.SetValue(Canvas.LeftProperty, custWindow.Width * .8);
+            custInsertBtn.SetValue(Canvas.LeftProperty, custWindow.Width * .79);
             custInsertBtn.SetValue(Canvas.TopProperty, custWindow.Height * .08);
             // Populate button. Populates all input fields based on input cust_id.
             custPopulateBtn.Width = 75;
@@ -67,7 +67,7 @@ namespace WPF_HumeLSDB
             custDeleteBtn.Width = 75;
             custDeleteBtn.SetValue(Canvas.LeftProperty, custWindow.Width * .88);
             custDeleteBtn.SetValue(Canvas.TopProperty, custWindow.Height * .35);
-            custUpdateOrDeleteTextBox.Width = 80;
+            custUpdateOrDeleteTextBox.Width = 75;
             custUpdateOrDeleteTextBox.SetValue(Canvas.LeftProperty, custWindow.Width * .79);
             custUpdateOrDeleteTextBox.SetValue(Canvas.TopProperty, custWindow.Height * .3);
         }
@@ -76,8 +76,8 @@ namespace WPF_HumeLSDB
         private void setupStackPanel()
         {
             // Stack panel that holds all insert fields.
-            custStackPanel.Width = 400; custStackPanel.Height = 250;
-            custStackPanel.SetValue(Canvas.LeftProperty, custWindow.Width * .4);
+            custStackPanel.Width = 350; custStackPanel.Height = 250;
+            custStackPanel.SetValue(Canvas.LeftProperty, custWindow.Width * .325);
             custStackPanel.SetValue(Canvas.TopProperty, custWindow.Height * .02);
             custEnterDataLabel.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             custEnterDataLabel.VerticalAlignment = System.Windows.VerticalAlignment.Center;
@@ -85,30 +85,75 @@ namespace WPF_HumeLSDB
             custEnterDataLabel.SetValue(FontWeightProperty, FontWeights.Bold);
             custEnterDataLabel.FontSize = 16;
 
+            // Stack panels that hold all insert field labels.
+            custLabelPanelLeft.Width = 110; custLabelPanelLeft.Height = 250;
+            custLabelPanelLeft.SetValue(Canvas.LeftProperty, custWindow.Width * .217);
+            custLabelPanelLeft.SetValue(Canvas.TopProperty, custWindow.Height * .1);
+            custLabelPanelRight.Width = 110; custLabelPanelRight.Height = 250;
+            custLabelPanelRight.SetValue(Canvas.LeftProperty, custWindow.Width * .65);
+            custLabelPanelRight.SetValue(Canvas.TopProperty, custWindow.Height * .1);
+
+            // All labels used to describe textbox fields.
+            labelLName.Margin = new Thickness(0, -20, 0, 20);
+            labelArea.Margin = new Thickness(0, -20, 0, 20);
+            labelAddress.Margin = new Thickness(0, -20, 0, 20);
+            labelCity.Margin = new Thickness(0, -20, 0, 20);
+            labelZip.Margin = new Thickness(0, -20, 0, 20);
+            labelFName.Margin = new Thickness(0, -20, 0, 20);
+            labelInitial.Margin = new Thickness(0, -20, 0, 20);
+            labelPhone.Margin = new Thickness(0, -20, 0, 20);
+            labelEmail.Margin = new Thickness(0, -20, 0, 20);
+            labelState.Margin = new Thickness(0, -20, 0, 20);
+            labelFName.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            labelInitial.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            labelPhone.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            labelEmail.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            labelState.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            labelLName.FontSize = 14;
+            labelArea.FontSize = 14;
+            labelAddress.FontSize = 14;
+            labelCity.FontSize = 14;
+            labelZip.FontSize = 14;
+            labelFName.FontSize = 14;
+            labelInitial.FontSize = 14;
+            labelPhone.FontSize = 14;
+            labelEmail.FontSize = 14;
+            labelState.FontSize = 14;
+            labelLName.Foreground = Brushes.Coral;
+            labelArea.Foreground = Brushes.Coral;
+            labelAddress.Foreground = Brushes.Coral;
+            labelCity.Foreground = Brushes.Coral;
+            labelZip.Foreground = Brushes.Coral;
+            labelFName.Foreground = Brushes.Coral;
+            labelInitial.Foreground = Brushes.Coral;
+            labelPhone.Foreground = Brushes.Coral;
+            labelEmail.Foreground = Brushes.Coral;
+            labelState.Foreground = Brushes.Coral;
+            
             // All textbox fields used to insert new row into database. 
-            custFName.Width = custStackPanel.Width * .4;
+            custFName.Width = custStackPanel.Width * .45;
             custFName.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            custLName.Width = custStackPanel.Width * .4;
+            custLName.Width = custStackPanel.Width * .45;
             custLName.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
             custLName.Margin = new Thickness(0, -21, 0, 5);
-            custInitial.Width = custStackPanel.Width * .4;
+            custInitial.Width = custStackPanel.Width * .45;
             custInitial.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            custArea.Width = custStackPanel.Width * .4;
+            custArea.Width = custStackPanel.Width * .45;
             custArea.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
             custArea.Margin = new Thickness(0, -21, 0, 5);
-            custPhone.Width = custStackPanel.Width * .4;
+            custPhone.Width = custStackPanel.Width * .45;
             custPhone.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            custAddress.Width = custStackPanel.Width * .4;
+            custAddress.Width = custStackPanel.Width * .45;
             custAddress.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
             custAddress.Margin = new Thickness(0, -21, 0, 5);
-            custEmail.Width = custStackPanel.Width * .4;
+            custEmail.Width = custStackPanel.Width * .45;
             custEmail.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            custCity.Width = custStackPanel.Width * .4;
+            custCity.Width = custStackPanel.Width * .45;
             custCity.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
             custCity.Margin = new Thickness(0, -21, 0, 5);
-            custState.Width = custStackPanel.Width * .4;
+            custState.Width = custStackPanel.Width * .45;
             custState.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            custZip.Width = custStackPanel.Width * .4;
+            custZip.Width = custStackPanel.Width * .45;
             custZip.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
             custZip.Margin = new Thickness(0, -21, 0, 5);
         }
@@ -155,44 +200,50 @@ namespace WPF_HumeLSDB
         // Populate button will populate all fields based on input cust_id.
         private void populateClick(object sender, RoutedEventArgs e)
         {
-            string currentCodeInfo = custUpdateOrDeleteTextBox.Text;
-            string sql = "select * from customer where cust_id = " + currentCodeInfo;
             NpgsqlConnection conn = App.openConn();
-            NpgsqlCommand selectQuery = new NpgsqlCommand(sql, conn);
-
             try
             {
+                string currentCodeInfo = custUpdateOrDeleteTextBox.Text;
+                string sql = "select * from customer where cust_id = " + currentCodeInfo;
+                NpgsqlCommand selectQuery = new NpgsqlCommand(sql, conn);
 
-                using (NpgsqlDataReader dr = selectQuery.ExecuteReader())
-                {
-                    while (dr.Read())
+                    using (NpgsqlDataReader dr = selectQuery.ExecuteReader())
                     {
-                        custFName.Text = (dr["cust_fname"].ToString());
-                        custLName.Text = (dr["cust_lname"].ToString());
-                        custInitial.Text = (dr["cust_initial"].ToString());
-                        custArea.Text = (dr["cust_areacode"].ToString());
-                        custPhone.Text = (dr["cust_phone"].ToString());
-                        custAddress.Text = (dr["cust_address"].ToString());
-                        custEmail.Text = (dr["cust_email"].ToString());
-                        custCity.Text = (dr["cust_city"].ToString());
-                        custState.Text = (dr["cust_state"].ToString());
-                        custZip.Text = (dr["cust_zipcode"].ToString());
+                        while (dr.Read())
+                        {
+                            custFName.Text = (dr["cust_fname"].ToString());
+                            custLName.Text = (dr["cust_lname"].ToString());
+                            custInitial.Text = (dr["cust_initial"].ToString());
+                            custArea.Text = (dr["cust_areacode"].ToString());
+                            custPhone.Text = (dr["cust_phone"].ToString());
+                            custAddress.Text = (dr["cust_address"].ToString());
+                            custEmail.Text = (dr["cust_email"].ToString());
+                            custCity.Text = (dr["cust_city"].ToString());
+                            custState.Text = (dr["cust_state"].ToString());
+                            custZip.Text = (dr["cust_zipcode"].ToString());
 
-                        // Removing automatic text removal upon click in all textboxes, as we just populated them. 
-                        // If the user is tabbing through, it'd be silly to have them all clear out.
-                        custFName.GotFocus -= textBox_gotFocus;
-                        custLName.GotFocus -= textBox_gotFocus;
-                        custInitial.GotFocus -= textBox_gotFocus;
-                        custArea.GotFocus -= textBox_gotFocus;
-                        custPhone.GotFocus -= textBox_gotFocus;
-                        custAddress.GotFocus -= textBox_gotFocus;
-                        custEmail.GotFocus -= textBox_gotFocus;
-                        custCity.GotFocus -= textBox_gotFocus;
-                        custState.GotFocus -= textBox_gotFocus;
-                        custZip.GotFocus -= textBox_gotFocus;
+                            // Removing automatic text removal upon click in all textboxes, as we just populated them. 
+                            // If the user is tabbing through, it'd be silly to have them all clear out.
+                            custFName.GotFocus -= textBox_gotFocus;
+                            custLName.GotFocus -= textBox_gotFocus;
+                            custInitial.GotFocus -= textBox_gotFocus;
+                            custArea.GotFocus -= textBox_gotFocus;
+                            custPhone.GotFocus -= textBox_gotFocus;
+                            custAddress.GotFocus -= textBox_gotFocus;
+                            custEmail.GotFocus -= textBox_gotFocus;
+                            custCity.GotFocus -= textBox_gotFocus;
+                            custState.GotFocus -= textBox_gotFocus;
+                            custZip.GotFocus -= textBox_gotFocus;
+                        }
                     }
-                }
-
+            }
+            catch (NpgsqlException)
+            {
+                MessageBox.Show("Hey, double check what you entered.");
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Hey, double check what you entered.");
             }
             finally
             {
@@ -204,62 +255,63 @@ namespace WPF_HumeLSDB
         // Areacode & zip are string rather than ints for ease of home database use.
         private void insertClick(object sender, RoutedEventArgs e)
         {
-            string useFName = custFName.Text;
-            string useLName = custLName.Text;
-            string useInitial = custInitial.Text;
-            string useArea = custArea.Text;
-            string usePhone = custPhone.Text;
-            string useAddress = custAddress.Text;
-            string useEmail = custEmail.Text;
-            string useCity = custCity.Text;
-            string useState = custState.Text;
-            string useZip = custZip.Text;
-
-            using (NpgsqlConnection conn = App.openConn())
+            NpgsqlConnection conn = App.openConn();
+            try
             {
 
-                using (NpgsqlCommand insertQuery = new NpgsqlCommand("insert into Customer ( "
-                            + "cust_fname, cust_lname, cust_initial, cust_areacode, "
-                            + "cust_phone, cust_address, cust_email, cust_city, cust_state, cust_zipcode) VALUES ("
-                            + ":FName, :LName, :Initial, :Area, :Phone, :Address, :Email, :City, :State, :Zip)", conn))
-                {
+                string useFName = custFName.Text;
+                string useLName = custLName.Text;
+                string useInitial = custInitial.Text;
+                string useArea = custArea.Text;
+                string usePhone = custPhone.Text;
+                string useAddress = custAddress.Text;
+                string useEmail = custEmail.Text;
+                string useCity = custCity.Text;
+                string useState = custState.Text;
+                string useZip = custZip.Text;
 
-                    insertQuery.Parameters.Add(new NpgsqlParameter("FName", NpgsqlTypes.NpgsqlDbType.Varchar));
-                    insertQuery.Parameters["FName"].Value = useArea;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("LName", NpgsqlTypes.NpgsqlDbType.Varchar));
-                    insertQuery.Parameters["LName"].Value = usePhone;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Initial", NpgsqlTypes.NpgsqlDbType.Varchar));
-                    insertQuery.Parameters["Initial"].Value = useInitial;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Varchar));
-                    insertQuery.Parameters["Area"].Value = useArea;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
-                    insertQuery.Parameters["Phone"].Value = usePhone;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Address", NpgsqlTypes.NpgsqlDbType.Varchar));
-                    insertQuery.Parameters["Address"].Value = useAddress;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Email", NpgsqlTypes.NpgsqlDbType.Varchar));
-                    insertQuery.Parameters["Email"].Value = useEmail;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("City", NpgsqlTypes.NpgsqlDbType.Varchar));
-                    insertQuery.Parameters["City"].Value = useCity;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("State", NpgsqlTypes.NpgsqlDbType.Varchar));
-                    insertQuery.Parameters["State"].Value = useState;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Varchar));
-                    insertQuery.Parameters["Zip"].Value = useZip;
-
-                    try
+                    using (NpgsqlCommand insertQuery = new NpgsqlCommand("insert into Customer ( "
+                                + "cust_fname, cust_lname, cust_initial, cust_areacode, "
+                                + "cust_phone, cust_address, cust_email, cust_city, cust_state, cust_zipcode) VALUES ("
+                                + ":FName, :LName, :Initial, :Area, :Phone, :Address, :Email, :City, :State, :Zip)", conn))
                     {
+
+                        insertQuery.Parameters.Add(new NpgsqlParameter("FName", NpgsqlTypes.NpgsqlDbType.Varchar));
+                        insertQuery.Parameters["FName"].Value = useFName;
+                        insertQuery.Parameters.Add(new NpgsqlParameter("LName", NpgsqlTypes.NpgsqlDbType.Varchar));
+                        insertQuery.Parameters["LName"].Value = useLName;
+                        insertQuery.Parameters.Add(new NpgsqlParameter("Initial", NpgsqlTypes.NpgsqlDbType.Varchar));
+                        insertQuery.Parameters["Initial"].Value = useInitial;
+                        insertQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Varchar));
+                        insertQuery.Parameters["Area"].Value = useArea;
+                        insertQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
+                        insertQuery.Parameters["Phone"].Value = usePhone;
+                        insertQuery.Parameters.Add(new NpgsqlParameter("Address", NpgsqlTypes.NpgsqlDbType.Varchar));
+                        insertQuery.Parameters["Address"].Value = useAddress;
+                        insertQuery.Parameters.Add(new NpgsqlParameter("Email", NpgsqlTypes.NpgsqlDbType.Varchar));
+                        insertQuery.Parameters["Email"].Value = useEmail;
+                        insertQuery.Parameters.Add(new NpgsqlParameter("City", NpgsqlTypes.NpgsqlDbType.Varchar));
+                        insertQuery.Parameters["City"].Value = useCity;
+                        insertQuery.Parameters.Add(new NpgsqlParameter("State", NpgsqlTypes.NpgsqlDbType.Varchar));
+                        insertQuery.Parameters["State"].Value = useState;
+                        insertQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Varchar));
+                        insertQuery.Parameters["Zip"].Value = useZip;
+
                         int rowsAffected = insertQuery.ExecuteNonQuery();
                         MessageBox.Show(rowsAffected.ToString());
                     }
-                    catch (NpgsqlException q)
-                    {
-                        Console.Write(q);
-                    }
-                    finally
-                    {
-                        App.closeConn(conn);
-                    }
-                }
-
+            }
+            catch (NpgsqlException)
+            {
+                MessageBox.Show("Hey, double check what you entered.");
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Hey, double check what you entered.");
+            }
+            finally
+            {
+                App.closeConn(conn);
             }
         }
 
@@ -267,57 +319,61 @@ namespace WPF_HumeLSDB
         // Areacode & zip are string rather than ints for ease of home database use.
         private void updateClick(object sender, RoutedEventArgs e)
         {
-            int useCode = Int32.Parse(custUpdateOrDeleteTextBox.Text);
-            string useFName = custFName.Text;
-            string useLName = custLName.Text;
-            string useInitial = custInitial.Text;
-            string useArea = custArea.Text;
-            string usePhone = custPhone.Text;
-            string useAddress = custAddress.Text;
-            string useEmail = custEmail.Text;
-            string useCity = custCity.Text;
-            string useState = custState.Text;
-            string useZip = custZip.Text;
-
             NpgsqlConnection conn = App.openConn();
-            string updatingID = custUpdateOrDeleteTextBox.Text;
-            string sql = "update Customer set cust_fname = :FName, cust_lname = :LName, "
-                       + "cust_initial = :Initial, cust_areacode = :Area, cust_phone = :Phone, cust_address = :Address, "
-                       + "cust_email = :Email, cust_city = :City, cust_state = :State, cust_zipcode = :Zip where cust_id = :Code";
-            NpgsqlCommand updateQuery = new NpgsqlCommand(sql, conn);
-
-            updateQuery.Parameters.Add(new NpgsqlParameter("FName", NpgsqlTypes.NpgsqlDbType.Varchar));
-            updateQuery.Parameters["FName"].Value = useArea;
-            updateQuery.Parameters.Add(new NpgsqlParameter("LName", NpgsqlTypes.NpgsqlDbType.Varchar));
-            updateQuery.Parameters["LName"].Value = usePhone;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Initial", NpgsqlTypes.NpgsqlDbType.Varchar));
-            updateQuery.Parameters["Initial"].Value = useInitial;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Varchar));
-            updateQuery.Parameters["Area"].Value = useArea;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
-            updateQuery.Parameters["Phone"].Value = usePhone;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Address", NpgsqlTypes.NpgsqlDbType.Varchar));
-            updateQuery.Parameters["Address"].Value = useAddress;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Email", NpgsqlTypes.NpgsqlDbType.Varchar));
-            updateQuery.Parameters["Email"].Value = useEmail;
-            updateQuery.Parameters.Add(new NpgsqlParameter("City", NpgsqlTypes.NpgsqlDbType.Varchar));
-            updateQuery.Parameters["City"].Value = useCity;
-            updateQuery.Parameters.Add(new NpgsqlParameter("State", NpgsqlTypes.NpgsqlDbType.Varchar));
-            updateQuery.Parameters["State"].Value = useState;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Varchar));
-            updateQuery.Parameters["Zip"].Value = useZip;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Code", NpgsqlTypes.NpgsqlDbType.Integer));
-            updateQuery.Parameters["Code"].Value = useCode;
-
             try
             {
+                int useCode = Int32.Parse(custUpdateOrDeleteTextBox.Text);
+                string useFName = custFName.Text;
+                string useLName = custLName.Text;
+                string useInitial = custInitial.Text;
+                string useArea = custArea.Text;
+                string usePhone = custPhone.Text;
+                string useAddress = custAddress.Text;
+                string useEmail = custEmail.Text;
+                string useCity = custCity.Text;
+                string useState = custState.Text;
+                string useZip = custZip.Text;
+
+                string updatingID = custUpdateOrDeleteTextBox.Text;
+                string sql = "update Customer set cust_fname = :FName, cust_lname = :LName, "
+                           + "cust_initial = :Initial, cust_areacode = :Area, cust_phone = :Phone, cust_address = :Address, "
+                           + "cust_email = :Email, cust_city = :City, cust_state = :State, cust_zipcode = :Zip where cust_id = :Code";
+                NpgsqlCommand updateQuery = new NpgsqlCommand(sql, conn);
+
+                updateQuery.Parameters.Add(new NpgsqlParameter("FName", NpgsqlTypes.NpgsqlDbType.Varchar));
+                updateQuery.Parameters["FName"].Value = useFName;
+                updateQuery.Parameters.Add(new NpgsqlParameter("LName", NpgsqlTypes.NpgsqlDbType.Varchar));
+                updateQuery.Parameters["LName"].Value = useLName;
+                updateQuery.Parameters.Add(new NpgsqlParameter("Initial", NpgsqlTypes.NpgsqlDbType.Varchar));
+                updateQuery.Parameters["Initial"].Value = useInitial;
+                updateQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Varchar));
+                updateQuery.Parameters["Area"].Value = useArea;
+                updateQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
+                updateQuery.Parameters["Phone"].Value = usePhone;
+                updateQuery.Parameters.Add(new NpgsqlParameter("Address", NpgsqlTypes.NpgsqlDbType.Varchar));
+                updateQuery.Parameters["Address"].Value = useAddress;
+                updateQuery.Parameters.Add(new NpgsqlParameter("Email", NpgsqlTypes.NpgsqlDbType.Varchar));
+                updateQuery.Parameters["Email"].Value = useEmail;
+                updateQuery.Parameters.Add(new NpgsqlParameter("City", NpgsqlTypes.NpgsqlDbType.Varchar));
+                updateQuery.Parameters["City"].Value = useCity;
+                updateQuery.Parameters.Add(new NpgsqlParameter("State", NpgsqlTypes.NpgsqlDbType.Varchar));
+                updateQuery.Parameters["State"].Value = useState;
+                updateQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Varchar));
+                updateQuery.Parameters["Zip"].Value = useZip;
+                updateQuery.Parameters.Add(new NpgsqlParameter("Code", NpgsqlTypes.NpgsqlDbType.Integer));
+                updateQuery.Parameters["Code"].Value = useCode;
+
                 int rowsAffected = updateQuery.ExecuteNonQuery();
                 string dialog = (rowsAffected + " record(s) with cust_id of " + updatingID + " has been updated in Customer table.");
                 MessageBox.Show(dialog);
             }
-            catch (NpgsqlException q)
+            catch (NpgsqlException)
             {
-                Console.Write(q);
+                MessageBox.Show("Hey, double check what you entered.");
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Hey, double check what you entered.");
             }
             finally
             {
@@ -329,17 +385,24 @@ namespace WPF_HumeLSDB
         private void deleteClick(object sender, RoutedEventArgs e)
         {
             NpgsqlConnection conn = App.openConn();
-            string deletingID = custUpdateOrDeleteTextBox.Text;
-            string sql = ("delete from Customer where cust_id = " + deletingID + ";");
-            NpgsqlCommand da = new NpgsqlCommand(sql, conn);
-            int rowsAffected;
-
             try
             {
+                string deletingID = custUpdateOrDeleteTextBox.Text;
+                string sql = ("delete from Customer where cust_id = " + deletingID + ";");
+                NpgsqlCommand da = new NpgsqlCommand(sql, conn);
+                int rowsAffected;
+
                 rowsAffected = da.ExecuteNonQuery();
                 string dialog = (rowsAffected + " record(s) with cust_id of " + deletingID + " has been deleted from Customer table.");
                 MessageBox.Show(dialog);
-
+            }
+            catch (NpgsqlException)
+            {
+                MessageBox.Show("Hey, double check what you entered.");
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Hey, double check what you entered.");
             }
             finally
             {
