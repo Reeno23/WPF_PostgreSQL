@@ -16,6 +16,7 @@
             <Button x:Name="vendRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
             <Button x:Name="vendInsertBtn" Content="Insert" Background="#FFF1DC53" Click="insertClick" />
             <TextBox x:Name="vendUpdateOrDeleteTextBox" Text="vendCode" GotFocus="textBox_gotFocus" />
+            <Button x:Name="vendPopulateBtn" Content="Populate"  Background="#FF7CDCE0" Click="populateClick" />
             <Button x:Name="vendUpdateBtn" Content="Update"  Background="#FF40CB59" Click="updateClick" />
             <Button x:Name="vendDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="vendGrid" ItemsSource="{Binding}" />

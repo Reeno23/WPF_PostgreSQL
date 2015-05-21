@@ -56,6 +56,10 @@ namespace WPF_HumeLSDB
             empInsertBtn.Width = 75;
             empInsertBtn.SetValue(Canvas.LeftProperty, empWindow.Width * .8);
             empInsertBtn.SetValue(Canvas.TopProperty, empWindow.Height * .08);
+            // Populate button. Populates all input fields based on input emp_id.
+            empPopulateBtn.Width = 75;
+            empPopulateBtn.SetValue(Canvas.LeftProperty, empWindow.Width * .88);
+            empPopulateBtn.SetValue(Canvas.TopProperty, empWindow.Height * .25);
             // Update button, delete button, and corresponding textbox. Will update or delete row in database based on given empCode.
             empUpdateBtn.Width = 75;
             empUpdateBtn.SetValue(Canvas.LeftProperty, empWindow.Width * .88);
@@ -65,7 +69,7 @@ namespace WPF_HumeLSDB
             empDeleteBtn.SetValue(Canvas.TopProperty, empWindow.Height * .35);
             empUpdateOrDeleteTextBox.Width = 80;
             empUpdateOrDeleteTextBox.SetValue(Canvas.LeftProperty, empWindow.Width * .79);
-            empUpdateOrDeleteTextBox.SetValue(Canvas.TopProperty, empWindow.Height * .325);
+            empUpdateOrDeleteTextBox.SetValue(Canvas.TopProperty, empWindow.Height * .3);
         }
 
         // Sets properties for all text boxes inside the stack panel & the panel itself.
@@ -143,14 +147,59 @@ namespace WPF_HumeLSDB
             makeEmployeeGrid();
         }
 
+        // Populate button will populate all fields based on input emp_id.
+        private void populateClick(object sender, RoutedEventArgs e)
+        {
+            string currentCodeInfo = empUpdateOrDeleteTextBox.Text;
+            string sql = "select * from employee where emp_id = " + currentCodeInfo;
+            NpgsqlConnection conn = App.openConn();
+            NpgsqlCommand selectQuery = new NpgsqlCommand(sql, conn);
+
+            try
+            {
+
+                using (NpgsqlDataReader dr = selectQuery.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        empTitle.Text = (dr["emp_title"].ToString());
+                        empFName.Text = (dr["emp_fname"].ToString());
+                        empLName.Text = (dr["emp_lname"].ToString());
+                        empInitial.Text = (dr["emp_initial"].ToString());
+                        empArea.Text = (dr["emp_areacode"].ToString());
+                        empPhone.Text = (dr["emp_phone"].ToString());
+                        empEmail.Text = (dr["emp_email"].ToString());
+                        empRate.Text = (dr["emp_rate"].ToString());
+
+                        // Removing automatic text removal upon click in all textboxes, as we just populated them. 
+                        // If the user is tabbing through, it'd be silly to have them all clear out.
+                        empTitle.GotFocus -= textBox_gotFocus;
+                        empFName.GotFocus -= textBox_gotFocus;
+                        empLName.GotFocus -= textBox_gotFocus;
+                        empInitial.GotFocus -= textBox_gotFocus;
+                        empArea.GotFocus -= textBox_gotFocus;
+                        empPhone.GotFocus -= textBox_gotFocus;
+                        empEmail.GotFocus -= textBox_gotFocus;
+                        empRate.GotFocus -= textBox_gotFocus;
+                    }
+                }
+
+            }
+            finally
+            {
+                App.closeConn(conn);
+            }
+        }
+
         // Insert button will insert row into database based on input information.
+        // Areacode is a string rather than int for ease of home database use.
         private void insertClick(object sender, RoutedEventArgs e)
         {
             string useTitle = empTitle.Text;
             string useFName = empFName.Text;
             string useLName = empLName.Text;
             string useInitial = empInitial.Text;
-            int useArea = Int32.Parse(empArea.Text);
+            string useArea = empArea.Text;
             string usePhone = empPhone.Text;
             string useEmail = empEmail.Text;
             double useRate = Double.Parse(empRate.Text);
@@ -173,7 +222,7 @@ namespace WPF_HumeLSDB
                     insertQuery.Parameters["LName"].Value = usePhone;
                     insertQuery.Parameters.Add(new NpgsqlParameter("Initial", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["Initial"].Value = useInitial;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Integer));
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["Area"].Value = useArea;
                     insertQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["Phone"].Value = usePhone;
@@ -201,6 +250,7 @@ namespace WPF_HumeLSDB
         }
 
         // Update button will update row based on input emp_code with input fields.
+        // Areacode is a string rather than int for ease of home database use.
         private void updateClick(object sender, RoutedEventArgs e)
         {
             int useCode = Int32.Parse(empUpdateOrDeleteTextBox.Text);
@@ -208,7 +258,7 @@ namespace WPF_HumeLSDB
             string useFName = empFName.Text;
             string useLName = empLName.Text;
             string useInitial = empInitial.Text;
-            int useArea = Int32.Parse(empArea.Text);
+            string useArea = empArea.Text;
             string usePhone = empPhone.Text;
             string useEmail = empEmail.Text;
             double useRate = Double.Parse(empRate.Text);
@@ -228,7 +278,7 @@ namespace WPF_HumeLSDB
             updateQuery.Parameters["LName"].Value = usePhone;
             updateQuery.Parameters.Add(new NpgsqlParameter("Initial", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Initial"].Value = useInitial;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Integer));
+            updateQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Area"].Value = useArea;
             updateQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Phone"].Value = usePhone;

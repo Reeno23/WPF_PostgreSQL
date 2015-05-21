@@ -56,6 +56,10 @@ namespace WPF_HumeLSDB
             vendInsertBtn.Width = 75;
             vendInsertBtn.SetValue(Canvas.LeftProperty, vendWindow.Width * .8);
             vendInsertBtn.SetValue(Canvas.TopProperty, vendWindow.Height * .08);
+            // Populate button. Populates all input fields based on input vend_code.
+            vendPopulateBtn.Width = 75;
+            vendPopulateBtn.SetValue(Canvas.LeftProperty, vendWindow.Width * .88);
+            vendPopulateBtn.SetValue(Canvas.TopProperty, vendWindow.Height * .25);
             // Update button, delete button, and corresponding textbox. Will update or delete row in database based on given vendCode.
             vendUpdateBtn.Width = 75;
             vendUpdateBtn.SetValue(Canvas.LeftProperty, vendWindow.Width * .88);
@@ -65,7 +69,7 @@ namespace WPF_HumeLSDB
             vendDeleteBtn.SetValue(Canvas.TopProperty, vendWindow.Height * .35);
             vendUpdateOrDeleteTextBox.Width = 80;
             vendUpdateOrDeleteTextBox.SetValue(Canvas.LeftProperty, vendWindow.Width * .79);
-            vendUpdateOrDeleteTextBox.SetValue(Canvas.TopProperty, vendWindow.Height * .325);
+            vendUpdateOrDeleteTextBox.SetValue(Canvas.TopProperty, vendWindow.Height * .3);
         }
 
         // Sets properties for all text boxes inside the stack panel & the panel itself.
@@ -142,18 +146,62 @@ namespace WPF_HumeLSDB
         {
             makeVendorGrid();
         }
+
+        // Populate button will populate all fields based on input vend_code.
+        private void populateClick(object sender, RoutedEventArgs e)
+        {
+            string currentCodeInfo = vendUpdateOrDeleteTextBox.Text;
+            string sql = "select * from vendor where vend_code = " + currentCodeInfo;
+            NpgsqlConnection conn = App.openConn();
+            NpgsqlCommand selectQuery = new NpgsqlCommand(sql, conn);
+
+            try {
+
+            using (NpgsqlDataReader dr = selectQuery.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    vendName.Text = (dr["vend_name"].ToString());
+                    vendArea.Text = (dr["vend_areacode"].ToString());
+                    vendPhone.Text = (dr["vend_phone"].ToString());
+                    vendAddress.Text = (dr["vend_address"].ToString());
+                    vendEmail.Text = (dr["vend_email"].ToString());
+                    vendCity.Text = (dr["vend_city"].ToString());
+                    vendState.Text = (dr["vend_state"].ToString());
+                    vendZip.Text = (dr["vend_zipcode"].ToString());
+
+                    // Removing automatic text removal upon click in all textboxes, as we just populated them. 
+                    // If the user is tabbing through, it'd be silly to have them all clear out.
+                    vendName.GotFocus -= textBox_gotFocus;
+                    vendArea.GotFocus -= textBox_gotFocus;
+                    vendPhone.GotFocus -= textBox_gotFocus;
+                    vendAddress.GotFocus -= textBox_gotFocus;
+                    vendEmail.GotFocus -= textBox_gotFocus;
+                    vendCity.GotFocus -= textBox_gotFocus;
+                    vendState.GotFocus -= textBox_gotFocus;
+                    vendZip.GotFocus -= textBox_gotFocus;
+                }
+            }
+
+        }
+            finally
+            {
+                App.closeConn(conn);
+            }
+    }
         
         // Insert button will insert row into database based on input information.
+        // Strings are being used for int values for ease of home database use. These would be properly paramatized otherwise.
         private void insertClick(object sender, RoutedEventArgs e)
         {
             string useName = vendName.Text;
-            int useArea = Int32.Parse(vendArea.Text);
+            string useArea = vendArea.Text;
             string usePhone = vendPhone.Text;
             string useAddress = vendAddress.Text;
             string useEmail = vendEmail.Text;
             string useCity = vendCity.Text;
             string useState = vendState.Text;
-            int useZip = Int32.Parse(vendZip.Text);
+            string useZip = vendZip.Text;
 
             using(NpgsqlConnection conn = App.openConn())
             {
@@ -166,7 +214,7 @@ namespace WPF_HumeLSDB
 
                     insertQuery.Parameters.Add(new NpgsqlParameter("Name", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["Name"].Value = useName;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Integer)); 
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Varchar)); 
                     insertQuery.Parameters["Area"].Value = useArea;
                     insertQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["Phone"].Value = usePhone;
@@ -178,7 +226,7 @@ namespace WPF_HumeLSDB
                     insertQuery.Parameters["City"].Value = useCity;
                     insertQuery.Parameters.Add(new NpgsqlParameter("State", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["State"].Value = useState;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Integer));
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["Zip"].Value = useZip;
 
                     try
@@ -200,17 +248,18 @@ namespace WPF_HumeLSDB
         }
 
         // Update button will update row based on input vend_code with input fields.
+        // Strings are being used for int values for ease of home database use. These would be properly paramatized otherwise.
         private void updateClick(object sender, RoutedEventArgs e)
         {
             int useCode = Int32.Parse(vendUpdateOrDeleteTextBox.Text);
             string useName = vendName.Text;
-            int useArea = Int32.Parse(vendArea.Text);
+            string useArea = vendArea.Text;
             string usePhone = vendPhone.Text;
             string useAddress = vendAddress.Text;
             string useEmail = vendEmail.Text;
             string useCity = vendCity.Text;
             string useState = vendState.Text;
-            int useZip = Int32.Parse(vendZip.Text);
+            string useZip = vendZip.Text;
 
             NpgsqlConnection conn = App.openConn();
             string updatingID = vendUpdateOrDeleteTextBox.Text;
@@ -221,7 +270,7 @@ namespace WPF_HumeLSDB
 
             updateQuery.Parameters.Add(new NpgsqlParameter("Name", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Name"].Value = useName;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Integer));
+            updateQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Area"].Value = useArea;
             updateQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Phone"].Value = usePhone;
@@ -233,7 +282,7 @@ namespace WPF_HumeLSDB
             updateQuery.Parameters["City"].Value = useCity;
             updateQuery.Parameters.Add(new NpgsqlParameter("State", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["State"].Value = useState;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Integer));
+            updateQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Zip"].Value = useZip;
             updateQuery.Parameters.Add(new NpgsqlParameter("Code", NpgsqlTypes.NpgsqlDbType.Integer));
             updateQuery.Parameters["Code"].Value = useCode;

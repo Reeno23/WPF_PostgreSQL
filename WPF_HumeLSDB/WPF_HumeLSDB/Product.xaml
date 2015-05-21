@@ -16,6 +16,7 @@
             <Button x:Name="prodRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
             <Button x:Name="prodInsertBtn" Content="Insert" Background="#FFF1DC53" Click="insertClick" />
             <TextBox x:Name="prodUpdateOrDeleteTextBox" Text="prodCode" GotFocus="textBox_gotFocus" />
+            <Button x:Name="prodPopulateBtn" Content="Populate"  Background="#FF7CDCE0" Click="populateClick" />
             <Button x:Name="prodUpdateBtn" Content="Update"  Background="#FF40CB59" Click="updateClick" />
             <Button x:Name="prodDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="prodGrid" ItemsSource="{Binding}" />

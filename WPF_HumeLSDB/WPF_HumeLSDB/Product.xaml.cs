@@ -56,6 +56,10 @@ namespace WPF_HumeLSDB
             prodInsertBtn.Width = 75;
             prodInsertBtn.SetValue(Canvas.LeftProperty, prodWindow.Width * .8);
             prodInsertBtn.SetValue(Canvas.TopProperty, prodWindow.Height * .08);
+            // Populate button. Populates all input fields based on input prod_code.
+            prodPopulateBtn.Width = 75;
+            prodPopulateBtn.SetValue(Canvas.LeftProperty, prodWindow.Width * .88);
+            prodPopulateBtn.SetValue(Canvas.TopProperty, prodWindow.Height * .25);
             // Update button, delete button, and corresponding textbox. Will update or delete row in database based on given prodCode.
             prodUpdateBtn.Width = 75;
             prodUpdateBtn.SetValue(Canvas.LeftProperty, prodWindow.Width * .88);
@@ -65,7 +69,7 @@ namespace WPF_HumeLSDB
             prodDeleteBtn.SetValue(Canvas.TopProperty, prodWindow.Height * .35);
             prodUpdateOrDeleteTextBox.Width = 80;
             prodUpdateOrDeleteTextBox.SetValue(Canvas.LeftProperty, prodWindow.Width * .79);
-            prodUpdateOrDeleteTextBox.SetValue(Canvas.TopProperty, prodWindow.Height * .325);
+            prodUpdateOrDeleteTextBox.SetValue(Canvas.TopProperty, prodWindow.Height * .3);
         }
 
         // Sets properties for all text boxes inside the stack panel & the panel itself.
@@ -130,10 +134,46 @@ namespace WPF_HumeLSDB
             makeProductGrid();
         }
 
+        // Populate button will populate all fields based on input prod_code.
+        private void populateClick(object sender, RoutedEventArgs e)
+        {
+            string currentCodeInfo = prodUpdateOrDeleteTextBox.Text;
+            string sql = "select * from product where prod_code = " + currentCodeInfo;
+            NpgsqlConnection conn = App.openConn();
+            NpgsqlCommand selectQuery = new NpgsqlCommand(sql, conn);
+
+            try
+            {
+
+                using (NpgsqlDataReader dr = selectQuery.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        vendCode.Text = (dr["vend_code"].ToString());
+                        prodDescription.Text = (dr["prod_description"].ToString());
+                        prodPrice.Text = (dr["prod_price"].ToString());
+
+
+                        // Removing automatic text removal upon click in all textboxes, as we just populated them. 
+                        // If the user is tabbing through, it'd be silly to have them all clear out.
+                        vendCode.GotFocus -= textBox_gotFocus;
+                        prodDescription.GotFocus -= textBox_gotFocus;
+                        prodPrice.GotFocus -= textBox_gotFocus;
+                    }
+                }
+
+            }
+            finally
+            {
+                App.closeConn(conn);
+            }
+        }
+
         // Insert button will insert row into database based on input information.
+        // VendCode is a string rather than int for ease of home database use.
         private void insertClick(object sender, RoutedEventArgs e)
         {
-            int useVendCode = Int32.Parse(vendCode.Text);
+            string useVendCode = vendCode.Text;
             string useProdDescription = prodDescription.Text;
             double useProdPrice = Double.Parse(prodPrice.Text);
 
@@ -145,7 +185,7 @@ namespace WPF_HumeLSDB
                             + ":VendCode, :ProdDescription, :ProdPrice )", conn))
                 {
 
-                    insertQuery.Parameters.Add(new NpgsqlParameter("VendCode", NpgsqlTypes.NpgsqlDbType.Integer));
+                    insertQuery.Parameters.Add(new NpgsqlParameter("VendCode", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["VendCode"].Value = useVendCode;
                     insertQuery.Parameters.Add(new NpgsqlParameter("ProdDescription", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["ProdDescription"].Value = useProdDescription;
@@ -157,10 +197,12 @@ namespace WPF_HumeLSDB
                         int rowsAffected = insertQuery.ExecuteNonQuery();
                         MessageBox.Show(rowsAffected.ToString());
                     }
+
                     catch (NpgsqlException q)
                     {
                         Console.Write(q);
                     }
+
                     finally
                     {
                         App.closeConn(conn);
@@ -171,10 +213,11 @@ namespace WPF_HumeLSDB
         }
 
         // Update button will update row based on input prod_code with input fields.
+        // VendCode is a string rather than int for ease of home database use.
         private void updateClick(object sender, RoutedEventArgs e)
         {
-            int useProdCode = Int32.Parse(prodUpdateOrDeleteTextBox.Text); 
-            int useVendCode = Int32.Parse(vendCode.Text);
+            int useProdCode = Int32.Parse(prodUpdateOrDeleteTextBox.Text);
+            string useVendCode = vendCode.Text;
             string useProdDescription = prodDescription.Text;
             double useProdPrice = Double.Parse(prodPrice.Text);
 
@@ -185,7 +228,7 @@ namespace WPF_HumeLSDB
             NpgsqlCommand updateQuery = new NpgsqlCommand(sql, conn);
 
 
-            updateQuery.Parameters.Add(new NpgsqlParameter("VendCode", NpgsqlTypes.NpgsqlDbType.Integer));
+            updateQuery.Parameters.Add(new NpgsqlParameter("VendCode", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["VendCode"].Value = useVendCode;
             updateQuery.Parameters.Add(new NpgsqlParameter("ProdDescription", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["ProdDescription"].Value = useProdDescription;

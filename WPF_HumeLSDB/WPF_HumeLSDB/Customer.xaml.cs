@@ -56,7 +56,11 @@ namespace WPF_HumeLSDB
             custInsertBtn.Width = 75;
             custInsertBtn.SetValue(Canvas.LeftProperty, custWindow.Width * .8);
             custInsertBtn.SetValue(Canvas.TopProperty, custWindow.Height * .08);
-            // Update button, delete button, and corresponding textbox. Will update or delete row in database based on given custCode.
+            // Populate button. Populates all input fields based on input cust_id.
+            custPopulateBtn.Width = 75;
+            custPopulateBtn.SetValue(Canvas.LeftProperty, custWindow.Width * .88);
+            custPopulateBtn.SetValue(Canvas.TopProperty, custWindow.Height * .25);
+            // Update button, delete button, and corresponding textbox. Will update or delete row in database based on given cust_id.
             custUpdateBtn.Width = 75;
             custUpdateBtn.SetValue(Canvas.LeftProperty, custWindow.Width * .88);
             custUpdateBtn.SetValue(Canvas.TopProperty, custWindow.Height * .30);
@@ -65,7 +69,7 @@ namespace WPF_HumeLSDB
             custDeleteBtn.SetValue(Canvas.TopProperty, custWindow.Height * .35);
             custUpdateOrDeleteTextBox.Width = 80;
             custUpdateOrDeleteTextBox.SetValue(Canvas.LeftProperty, custWindow.Width * .79);
-            custUpdateOrDeleteTextBox.SetValue(Canvas.TopProperty, custWindow.Height * .325);
+            custUpdateOrDeleteTextBox.SetValue(Canvas.TopProperty, custWindow.Height * .3);
         }
 
         // Sets properties for all text boxes inside the stack panel & the panel itself.
@@ -148,19 +152,68 @@ namespace WPF_HumeLSDB
             makeCustomerGrid();
         }
 
+        // Populate button will populate all fields based on input cust_id.
+        private void populateClick(object sender, RoutedEventArgs e)
+        {
+            string currentCodeInfo = custUpdateOrDeleteTextBox.Text;
+            string sql = "select * from customer where cust_id = " + currentCodeInfo;
+            NpgsqlConnection conn = App.openConn();
+            NpgsqlCommand selectQuery = new NpgsqlCommand(sql, conn);
+
+            try
+            {
+
+                using (NpgsqlDataReader dr = selectQuery.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        custFName.Text = (dr["cust_fname"].ToString());
+                        custLName.Text = (dr["cust_lname"].ToString());
+                        custInitial.Text = (dr["cust_initial"].ToString());
+                        custArea.Text = (dr["cust_areacode"].ToString());
+                        custPhone.Text = (dr["cust_phone"].ToString());
+                        custAddress.Text = (dr["cust_address"].ToString());
+                        custEmail.Text = (dr["cust_email"].ToString());
+                        custCity.Text = (dr["cust_city"].ToString());
+                        custState.Text = (dr["cust_state"].ToString());
+                        custZip.Text = (dr["cust_zipcode"].ToString());
+
+                        // Removing automatic text removal upon click in all textboxes, as we just populated them. 
+                        // If the user is tabbing through, it'd be silly to have them all clear out.
+                        custFName.GotFocus -= textBox_gotFocus;
+                        custLName.GotFocus -= textBox_gotFocus;
+                        custInitial.GotFocus -= textBox_gotFocus;
+                        custArea.GotFocus -= textBox_gotFocus;
+                        custPhone.GotFocus -= textBox_gotFocus;
+                        custAddress.GotFocus -= textBox_gotFocus;
+                        custEmail.GotFocus -= textBox_gotFocus;
+                        custCity.GotFocus -= textBox_gotFocus;
+                        custState.GotFocus -= textBox_gotFocus;
+                        custZip.GotFocus -= textBox_gotFocus;
+                    }
+                }
+
+            }
+            finally
+            {
+                App.closeConn(conn);
+            }
+        }
+
         // Insert button will insert row into database based on input information.
+        // Areacode & zip are string rather than ints for ease of home database use.
         private void insertClick(object sender, RoutedEventArgs e)
         {
             string useFName = custFName.Text;
             string useLName = custLName.Text;
             string useInitial = custInitial.Text;
-            int useArea = Int32.Parse(custArea.Text);
+            string useArea = custArea.Text;
             string usePhone = custPhone.Text;
             string useAddress = custAddress.Text;
             string useEmail = custEmail.Text;
             string useCity = custCity.Text;
             string useState = custState.Text;
-            int useZip = Int32.Parse(custZip.Text);
+            string useZip = custZip.Text;
 
             using (NpgsqlConnection conn = App.openConn())
             {
@@ -177,7 +230,7 @@ namespace WPF_HumeLSDB
                     insertQuery.Parameters["LName"].Value = usePhone;
                     insertQuery.Parameters.Add(new NpgsqlParameter("Initial", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["Initial"].Value = useInitial;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Integer));
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["Area"].Value = useArea;
                     insertQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["Phone"].Value = usePhone;
@@ -189,7 +242,7 @@ namespace WPF_HumeLSDB
                     insertQuery.Parameters["City"].Value = useCity;
                     insertQuery.Parameters.Add(new NpgsqlParameter("State", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["State"].Value = useState;
-                    insertQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Integer));
+                    insertQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Varchar));
                     insertQuery.Parameters["Zip"].Value = useZip;
 
                     try
@@ -211,19 +264,20 @@ namespace WPF_HumeLSDB
         }
 
         // Update button will update row based on input cust_code with input fields.
+        // Areacode & zip are string rather than ints for ease of home database use.
         private void updateClick(object sender, RoutedEventArgs e)
         {
             int useCode = Int32.Parse(custUpdateOrDeleteTextBox.Text);
             string useFName = custFName.Text;
             string useLName = custLName.Text;
             string useInitial = custInitial.Text;
-            int useArea = Int32.Parse(custArea.Text);
+            string useArea = custArea.Text;
             string usePhone = custPhone.Text;
             string useAddress = custAddress.Text;
             string useEmail = custEmail.Text;
             string useCity = custCity.Text;
             string useState = custState.Text;
-            int useZip = Int32.Parse(custZip.Text);
+            string useZip = custZip.Text;
 
             NpgsqlConnection conn = App.openConn();
             string updatingID = custUpdateOrDeleteTextBox.Text;
@@ -238,7 +292,7 @@ namespace WPF_HumeLSDB
             updateQuery.Parameters["LName"].Value = usePhone;
             updateQuery.Parameters.Add(new NpgsqlParameter("Initial", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Initial"].Value = useInitial;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Integer));
+            updateQuery.Parameters.Add(new NpgsqlParameter("Area", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Area"].Value = useArea;
             updateQuery.Parameters.Add(new NpgsqlParameter("Phone", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Phone"].Value = usePhone;
@@ -250,7 +304,7 @@ namespace WPF_HumeLSDB
             updateQuery.Parameters["City"].Value = useCity;
             updateQuery.Parameters.Add(new NpgsqlParameter("State", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["State"].Value = useState;
-            updateQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Integer));
+            updateQuery.Parameters.Add(new NpgsqlParameter("Zip", NpgsqlTypes.NpgsqlDbType.Varchar));
             updateQuery.Parameters["Zip"].Value = useZip;
             updateQuery.Parameters.Add(new NpgsqlParameter("Code", NpgsqlTypes.NpgsqlDbType.Integer));
             updateQuery.Parameters["Code"].Value = useCode;

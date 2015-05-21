@@ -16,6 +16,7 @@
             <Button x:Name="custRefreshBtn" Content="Refresh" Click="refreshBtnClick" />
             <Button x:Name="custInsertBtn" Content="Insert" Background="#FFF1DC53" Click="insertClick" />
             <TextBox x:Name="custUpdateOrDeleteTextBox" Text="cust_id" GotFocus="textBox_gotFocus" />
+            <Button x:Name="custPopulateBtn" Content="Populate"  Background="#FF7CDCE0" Click="populateClick" />
             <Button x:Name="custUpdateBtn" Content="Update"  Background="#FF40CB59" Click="updateClick" />
             <Button x:Name="custDeleteBtn" Content="Delete"  Background="#FFFD1A1A" Click="deleteClick" />
             <DataGrid x:Name="custGrid" ItemsSource="{Binding}" />
